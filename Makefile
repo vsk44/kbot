@@ -31,10 +31,7 @@ windows:
 #arm: CGO_ENABLED=0 GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
 
 
-imagearm:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
-	
-imageamd:
+image:
 	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
 
 push:
