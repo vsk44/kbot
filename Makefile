@@ -1,4 +1,4 @@
-APP=$(shell basename $(shell git remote get-url origin)1)
+APP=$(shell basename $(shell git remote get-url origin))
 REGISTRY=vsk4
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOSLINUX=linux
@@ -41,4 +41,4 @@ push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
 
 clean:
-	docker rmi $$(docker images 'vsk4/kbot1' -a -q)
+	docker rmi $$(docker images 'vsk4/kbot' -a -q)
