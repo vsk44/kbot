@@ -1,8 +1,11 @@
-APP=$(shell basename $(shell git remote get-url origin))
+APP=$(shell basename $(shell git remote get-url origin)1)
 REGISTRY=vsk4
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
-TARGETOS=linux
-TARGETARCH=amd64 #arm64
+TARGETOSLINUX=linux
+TARGETOSMACOS=darwin
+TARGETOSWINDOWS=windows
+TARGETARCHAMD64=amd64
+TARGETARCHARM64=arm64
 
 format:
 	gofmt -s -w ./
@@ -15,14 +18,28 @@ test:
 
 get:
 	go get
-build: format
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
 
-image:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+linux: format get
+	CGO_ENABLED=0 GOOS=${TARGETOSLINUX} GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
+
+darwin:
+	CGO_ENABLED=0 GOOS=${TARGETOSMACOS} GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
+
+windows:
+	CGO_ENABLED=0 GOOS=${TARGETOSWINDOWS} GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
+
+#arm: CGO_ENABLED=0 GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
+
+
+imagearm:
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
 	
+imageamd:
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHAMD64}
+
 push:
-	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
+	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
 
 clean:
 	rm -rf kbot
+	docker rmi -f $(shell docker images -q)
