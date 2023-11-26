@@ -35,11 +35,10 @@ imagearm:
 	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
 	
 imageamd:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHAMD64}
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
 
 push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
 
 clean:
-	rm -rf kbot
-	docker rmi -f $(shell docker images -q)
+	docker rmi vsk4/kbot1:v1.0.5-807dc71-arm64
