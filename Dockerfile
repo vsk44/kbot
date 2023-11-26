@@ -3,7 +3,7 @@ FROM golang:1.21.3 as builder
 WORKDIR /go/src/app
 COPY . .
 RUN make get
-#works for linux, windows, macos
+#works for linux, windows, darwin
 RUN make linux 
 
 FROM scratch
