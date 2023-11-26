@@ -41,4 +41,4 @@ push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
 
 clean:
-	docker rmi vsk4/kbot1:v1.0.5-807dc71-arm64
+	docker rmi $$(docker images 'vsk4/kbot1' -a -q)
