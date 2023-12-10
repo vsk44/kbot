@@ -20,7 +20,7 @@ get:
 	go get
 
 linux: format get
-	CGO_ENABLED=0 GOOS=${TARGETOSLINUX} GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
+	CGO_ENABLED=0 GOOS=${TARGETOSLINUX} GOARCH=${TARGETARCHAMD64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
 
 darwin:
 	CGO_ENABLED=0 GOOS=${TARGETOSMACOS} GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
@@ -32,10 +32,10 @@ windows:
 
 
 image:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHAMD64}
 
 push:
-	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHARM64}
+	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHAMD64}
 
 clean:
 	docker rmi $$(docker images 'vsk4/kbot' -a -q)
