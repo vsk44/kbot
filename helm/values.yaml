@@ -4,14 +4,15 @@
 
 replicaCount: 1
 image:
-  repository: vsk4
+  repository: "vsk4"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1.0.6-a96f11b"
   arch: amd64
 secret:
-  name: kbot
-  tokenKey: token
-  tokenName: TELE_TOKEN
+  name: "kbot"
+  env: "TELE_TOKEN"
+  key: "token"
+
 securityContext:
   privileged: true
