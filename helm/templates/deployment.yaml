@@ -23,6 +23,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      serviceAccountName: v1.0.6-kbot
       dnsConfig:
         nameservers:
           - 1.1.1.1
