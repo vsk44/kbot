@@ -3,7 +3,7 @@ FROM golang:1.20 as builder
 ENV TELE_TOKEN=6501274149:AAFzdI-BOYo8-KDyB4evgMDsV_r2ElTHB-4
 WORKDIR /go/src/app
 COPY . .
-RUN make get
+RUN go get
 #works for linux, windows, darwin
 RUN make linux 
 
