@@ -52,9 +52,9 @@ spec:
               secretKeyRef:
                 name: {{ .Values.secret.name }}
                 key: TELE_TOKEN
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 30
-            periodSeconds: 60
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 80
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 60
