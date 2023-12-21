@@ -38,4 +38,4 @@ push:
 	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHAMD64}
 
 clean:
-	docker rmi $$(docker images 'vsk4/kbot' -a -q)
+	docker rmi $$(docker images ${REGISTRY}/${APP} -a -q) -f
