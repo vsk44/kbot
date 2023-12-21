@@ -50,8 +50,8 @@ spec:
           - name: {{ .Values.secret.env }}
             valueFrom:
               secretKeyRef:
-                key: {{ .Values.secret.key }}
                 name: {{ .Values.secret.name }}
+                key: TELE_TOKEN
           readinessProbe:
             httpGet:
               path: /
