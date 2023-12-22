@@ -1,5 +1,5 @@
 APP=$(shell basename $(shell git remote get-url origin))
-REGISTRY=vsk4
+REGISTRY=ghcr.io/vsk44
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOSLINUX=linux
 TARGETOSMACOS=darwin
@@ -32,10 +32,10 @@ windows:
 
 
 image:
-	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHAMD64}
+	docker build . -t ${REGISTRY}/${APP}:${VERSION}-${TARGETOSLINUX}-${TARGETARCHAMD64}
 
 push:
-	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETARCHAMD64}
+	docker push ${REGISTRY}/${APP}:${VERSION}-${TARGETOSLINUX}-${TARGETARCHAMD64}
 
 clean:
 	docker rmi $$(docker images ${REGISTRY}/${APP} -a -q) -f
