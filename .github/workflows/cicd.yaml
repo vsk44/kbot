@@ -16,7 +16,7 @@ jobs:
       - name: Run test
         run: make test
       - name: ghcr login
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.G_LOGIN }}
           password: ${{ secrets.G_TOKEN }}
