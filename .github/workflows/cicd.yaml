@@ -26,7 +26,7 @@ jobs:
       - name: Build&Push
         env:
           APP: "kbot"
-          REGISTRY: vsk44
+          REGISTRY: vsk4
         run: make image push
   cd: 
     name: CD
