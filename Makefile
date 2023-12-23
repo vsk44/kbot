@@ -19,14 +19,23 @@ test:
 get:
 	go get
 
-linux: format get
+linux-arm64: format get
+	CGO_ENABLED=0 GOOS=${TARGETOSLINUX} GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
+
+linux-amd64: format get
 	CGO_ENABLED=0 GOOS=${TARGETOSLINUX} GOARCH=${TARGETARCHAMD64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
 
-darwin:
+darwin-arm64:
 	CGO_ENABLED=0 GOOS=${TARGETOSMACOS} GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
 
-windows:
+darwin-amd64:
+	CGO_ENABLED=0 GOOS=${TARGETOSMACOS} GOARCH=${TARGETARCHAMD64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
+
+windows-arm64:
 	CGO_ENABLED=0 GOOS=${TARGETOSWINDOWS} GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
+
+windows-amd64:
+	CGO_ENABLED=0 GOOS=${TARGETOSWINDOWS} GOARCH=${TARGETARCHAMD64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
 
 #arm: CGO_ENABLED=0 GOARCH=${TARGETARCHARM64} go build -v -o kbot -ldflags "-X="github.com/vsk44/kbot/cmd.appVersion=${VERSION}
 
