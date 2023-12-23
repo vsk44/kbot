@@ -1,5 +1,5 @@
 APP=$(shell basename $(shell git remote get-url origin))
-REGISTRY=ghcr.io/vsk44
+REGISTRY=vsk44
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOSLINUX=linux
 TARGETOSMACOS=darwin
