@@ -4,6 +4,7 @@
 
 replicaCount: 1
 image:
+  registry: "docker.io"
   repository: "vsk4/kbot"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
