@@ -10,4 +10,4 @@ Installation instruction:
 After creating a bot, you can start messaging.
 
 Example of using commands:
--type "/start hello" and bot will answer you..
+-type "/start hello" and bot will answer you.
