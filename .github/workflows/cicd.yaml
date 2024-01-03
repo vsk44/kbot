@@ -27,7 +27,7 @@ jobs:
         env:
           APP: "kbot"
           REGISTRY: vsk4
-        run: make image push
+        run: make build image push
   cd: 
     name: CD
     needs: ci
