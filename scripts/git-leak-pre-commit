@@ -26,9 +26,6 @@ def install_gitleaks():
     if system == "linux" or system == "darwin":
         subprocess.run(["brew", "install", "gitleaks"], check=True)
     elif system == "win32":
-        # Assuming you have some way to install gitleaks on Windows
-        # e.g., Chocolatey or manual installation
-        # Update the command accordingly
         subprocess.run(["choco", "install", "gitleaks"], check=True)
     else:
         print("Non-supportive system.")
