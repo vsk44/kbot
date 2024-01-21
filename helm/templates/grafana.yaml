@@ -18,4 +18,12 @@ spec:
           image: {{ .Values.grafana.image.registry }}/{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}
           env:
             {{- toYaml .Values.grafana.env | nindent 12 }}
+          volumeMounts:
+            - name: grafana-config
+              mountPath: /etc/grafana
+              readOnly: true
+      volumes:
+        - name: grafana-config
+          configMap:
+            name: {{ .Values.grafana.configMap.name }}
 {{- end }}

@@ -19,11 +19,7 @@ spec:
           volumeMounts:
             - name: otel-collector-config
               mountPath: /etc/otel
-      volumes:
-        - name: otel-collector-config
-          configMap:
-            name: {{ .Values.otelCollector.configMap.name }}
-            items:
-              - key: {{ .Values.otelCollector.configMap.key }}
-                path: otel-collector-contrib.yaml
+              subPath: otel-collector.yaml
+          args:
+            - "--config=/etc/otel/otel-collector.yaml"
 {{- end }}

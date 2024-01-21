@@ -1,9 +1,10 @@
+{{- if .Values.fluentBit.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fluent-bit
 spec:
-  replicas: 1  # Кількість реплік для Deployment
+  replicas: 1
   selector:
     matchLabels:
       app: fluent-bit
@@ -14,14 +15,20 @@ spec:
     spec:
       containers:
         - name: fluent-bit
-          image: fluent/fluent-bit:latest
+          image: {{ .Values.fluentBit.image.registry }}/{{ .Values.fluentBit.image.repository }}:{{ .Values.fluentBit.image.tag }}
           volumeMounts:
             - name: fluent-bit-config
               mountPath: /fluent-bit/etc/
-  volumes:
-    - name: fluent-bit-config
-      configMap:
-        name: {{ .Values.fluentBit.configMap.name }}
-        items:
-          - key: {{ .Values.fluentBit.configMap.key }}
-            path: fluent-bit.conf
+          args:
+            - "-c"
+            - "/fluent-bit/etc/fluent-bit.conf"
+      volumes:
+        - name: fluent-bit-config
+          configMap:
+            name: {{ .Values.fluentBit.configMap.name }}
+            items:
+              - key: {{ .Values.fluentBit.configMap.key }}
+                path: fluent-bit.conf
+              - key: {{ .Values.fluentBit.configMap.luaKey }}
+                path: docker-metadata.lua
+{{- end }}

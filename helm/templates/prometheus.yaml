@@ -16,15 +16,9 @@ spec:
       containers:
         - name: prometheus
           image: {{ .Values.prometheus.image.registry }}/{{ .Values.prometheus.image.repository }}:{{ .Values.prometheus.image.tag }}
-          # Додайте інші параметри за потребою
           volumeMounts:
             - name: prometheus-config
               mountPath: /etc/prometheus
-      volumes:
-        - name: prometheus-config
-          configMap:
-            name: {{ .Values.prometheus.configMap.name }}
-            items:
-              - key: {{ .Values.prometheus.configMap.key }}
-                path: prometheus.yaml
+          args:
+            - "--config.file=/etc/prometheus/prometheus.yml" 
 {{- end }}
