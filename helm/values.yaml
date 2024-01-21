@@ -27,8 +27,8 @@ otelOperator:
 otelCollector:
   enabled: true
   image:
-    registry: "otel/opentelemetry-collector-contrib"
-    repository: "otel/opentelemetry-collector-contrib"
+    registry: "otel"
+    repository: "opentelemetry-collector-contrib"
     tag: "0.78.0"
     arch: amd64
     os: linux
@@ -59,8 +59,8 @@ otelCollector:
 fluentBit:
   enabled: true
   image:
-    registry: "fluent/fluent-bit"
-    repository: "fluent/fluent-bit"
+    registry: "fluent"
+    repository: "fluent-bit"
     tag: "latest"
     arch: amd64
     os: linux
@@ -174,8 +174,8 @@ fluentBit:
 loki:
   enabled: true
   image:
-    registry: "grafana/loki"
-    repository: "grafana/loki"
+    registry: "grafana"
+    repository: "loki"
     tag: "2.8.2"
     arch: amd64
     os: linux
@@ -217,8 +217,8 @@ loki:
 prometheus:
   enabled: true
   image:
-    registry: "prom/prometheus"
-    repository: "prom/prometheus"
+    registry: "prom"
+    repository: "prometheus"
     tag: "latest"
     arch: amd64
     os: linux
