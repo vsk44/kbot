@@ -16,7 +16,4 @@ spec:
       containers:
         - name: prometheus
           image: {{ .Values.prometheus.image.registry }}/{{ .Values.prometheus.image.repository }}:{{ .Values.prometheus.image.tag }}
-          volumeMounts:
-            - name: prometheus-config
-              mountPath: /etc/prometheus
 {{- end }}

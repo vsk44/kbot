@@ -16,7 +16,4 @@ spec:
       containers:
         - name: otel-collector
           image: {{ .Values.otelCollector.image.registry }}/{{ .Values.otelCollector.image.repository }}:{{ .Values.otelCollector.image.tag }}
-          volumeMounts:
-            - name: otel-collector-config
-              mountPath: /etc/otel
 {{- end }}

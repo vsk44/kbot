@@ -16,9 +16,4 @@ spec:
       containers:
         - name: loki
           image: {{ .Values.loki.image.registry }}/{{ .Values.loki.image.repository }}:{{ .Values.loki.image.tag }}
-          volumeMounts:
-            - name: loki-config
-              mountPath: /etc/loki
-          args:
-            - "--config.file=/etc/loki/loki-local-config.yaml"
 {{- end }}
