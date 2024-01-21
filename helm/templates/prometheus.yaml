@@ -19,6 +19,4 @@ spec:
           volumeMounts:
             - name: prometheus-config
               mountPath: /etc/prometheus
-          args:
-            - "--config.file=/etc/prometheus/prometheus.yml" 
 {{- end }}

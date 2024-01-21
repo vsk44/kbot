@@ -19,7 +19,4 @@ spec:
           volumeMounts:
             - name: otel-collector-config
               mountPath: /etc/otel
-              subPath: otel-collector.yaml
-          args:
-            - "--config=/etc/otel/otel-collector.yaml"
 {{- end }}

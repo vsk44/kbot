@@ -179,9 +179,6 @@ loki:
     tag: "2.8.2"
     arch: amd64
     os: linux
-  configMap:
-    name: loki-config
-    key: loki-local-config.yaml
   authEnabled: false  # Додали новий параметр
   server:
     httpListenPort: 3100
@@ -235,6 +232,7 @@ prometheus:
     - job_name: 'prometheus'
       static_configs:
         - targets: ['localhost:9090']
+        
 grafana:
   enabled: true
   image:
