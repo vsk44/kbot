@@ -1,0 +1,30 @@
+{{- if .Values.loki.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+  template:
+    metadata:
+      labels:
+        app: loki
+    spec:
+      containers:
+        - name: loki
+          image: {{ .Values.loki.image.registry }}/{{ .Values.loki.image.repository }}:{{ .Values.loki.image.tag }}
+          # Додайте інші параметри за потребою
+          volumeMounts:
+            - name: loki-config
+              mountPath: /etc/loki
+      volumes:
+        - name: loki-config
+          configMap:
+            name: {{ .Values.loki.configMap.name }}
+            items:
+              - key: {{ .Values.loki.configMap.key }}
+                path: loki-local-config.yaml
+{{- end }}

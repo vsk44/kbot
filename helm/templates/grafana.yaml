@@ -1,0 +1,21 @@
+{{- if .Values.grafana.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: {{ .Values.grafana.image.registry }}/{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}
+          env:
+            {{- toYaml .Values.grafana.env | nindent 12 }}
+{{- end }}

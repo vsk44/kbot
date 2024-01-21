@@ -17,3 +17,72 @@ secret:
   key: "token"
 securityContext:
   privileged: true
+
+otelTelemetry:
+  enabled: true
+
+otelOperator:
+  enabled: true
+
+otelCollector:
+  enabled: true
+  image:
+    registry: "otel/opentelemetry-collector-contrib"
+    repository: "otel/opentelemetry-collector-contrib"
+    tag: "0.78.0"
+    arch: amd64
+    os: linux
+  configMap:
+    name: otel-collector-config
+    key: otel-collector-contrib.yaml
+
+fluentBit:
+  enabled: true
+  image:
+    registry: "fluent/fluent-bit"
+    repository: "fluent/fluent-bit"
+    tag: "latest"
+    arch: amd64
+    os: linux
+  configMap:
+    name: fluent-bit-config
+    key: fluent-bit.conf
+
+loki:
+  enabled: true
+  image:
+    registry: "grafana/loki"
+    repository: "grafana/loki"
+    tag: "2.8.2"
+    arch: amd64
+    os: linux
+  configMap:
+    name: loki-config
+    key: loki-local-config.yaml
+
+prometheus:
+  enabled: true
+  image:
+    registry: "prom/prometheus"
+    repository: "prom/prometheus"
+    tag: "latest"
+    arch: amd64
+    os: linux
+configMap:
+    name: prometheus-config
+    key: prometheus.yaml
+
+grafana:
+  enabled: true
+  image:
+    registry: "grafana"
+    repository: "grafana/grafana"
+    tag: "9.4.3"
+  provisioning:
+    datasources: true
+  env:
+    GF_AUTH_ANONYMOUS_ENABLED: "true"
+    GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+    GF_AUTH_DISABLE_LOGIN_FORM: "true"
+    GF_FEATURE_TOGGLES_ENABLE: "traceqlEditor"
+    GF_SERVER_HTTP_PORT: "3002"
