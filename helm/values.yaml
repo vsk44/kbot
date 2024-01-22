@@ -237,7 +237,7 @@ grafana:
   enabled: true
   image:
     registry: "grafana"
-    repository: "grafana/grafana"
+    repository: "grafana"
     tag: "9.4.3"
   provisioning:
     datasources: true
