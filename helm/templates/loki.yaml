@@ -19,8 +19,15 @@ spec:
           volumeMounts:
             - name: {{ .Values.loki.volumes.name }}
               mountPath: /etc/loki/local-config.yaml
+              subPath: local-config.yaml
+          ports:
+            - containerPort: 3100
+          args:
+            - "-config.file=/etc/loki/local-config.yaml"
+            - "-log.level=error"
       volumes:
         - name: {{ .Values.loki.volumes.name }}
           configMap:
             name: {{ .Values.loki.configMap.name }}
+            key: {{ .Values.loki.configMap.key }}
 {{- end }}

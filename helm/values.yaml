@@ -68,6 +68,7 @@ loki:
       name: loki-local-config
   configMap:
       name: loki-configmap
+      key: local-config.yaml
 
 
 prometheus:
