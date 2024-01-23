@@ -18,7 +18,8 @@ secret:
 securityContext:
   privileged: true
 metricsHost:
-  name: "collector:4317"
+  name: metricsHost
+  key: "collector:4317"
 
 otelOperator:
   enabled: false
