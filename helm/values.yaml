@@ -38,7 +38,7 @@ otelCollector:
     arch: amd64
     os: linux
   volumes:
-    - name: otel-collector-config
+      name: otel-collector-config
   configMap:
       name: otel-collector-configmap
 
@@ -64,40 +64,11 @@ loki:
     tag: "2.8.2"
     arch: amd64
     os: linux
-  authEnabled: false  # Додали новий параметр
-  server:
-    httpListenPort: 3100
-    grpcListenPort: 9096
-  common:
-    instanceAddr: 127.0.0.1
-    pathPrefix: /tmp/loki
-    storage:
-      filesystem:
-        chunksDirectory: /tmp/loki/chunks
-        rulesDirectory: /tmp/loki/rules
-    replicationFactor: 1
-    ring:
-      kvstore:
-        store: inmemory
-  queryRange:
-    resultsCache:
-      cache:
-        embeddedCache:
-          enabled: true
-          maxSizeMb: 100
-  schemaConfig:
-    configs:
-      - from: 2020-10-24
-        store: boltdb-shipper
-        objectStore: filesystem
-        schema: v11
-        index:
-          prefix: index_
-          period: 24h
-  ruler:
-    alertmanagerUrl: http://localhost:9093
-  analytics:
-    reportingEnabled: false
+  volumes:
+      name: loki-config
+  configMap:
+      name: loki-configmap
+
 
 prometheus:
   enabled: true

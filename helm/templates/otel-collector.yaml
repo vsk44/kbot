@@ -17,10 +17,10 @@ spec:
         - name: otel-collector
           image: {{ .Values.otelCollector.image.registry }}/{{ .Values.otelCollector.image.repository }}:{{ .Values.otelCollector.image.tag }}
           volumeMounts:
-            - name: otel-collector-config
+            - name: {{ .Values.otelCollector.volumes.name }}
               mountPath: /etc/otel-collector-config.yaml
       volumes:
-        - name: otel-collector-config
+        - name: {{ .Values.otelCollector.volumes.name }}
           configMap:
             name: {{ .Values.otelCollector.configMap.name }}
 {{- end }}
