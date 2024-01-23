@@ -65,7 +65,7 @@ loki:
     arch: amd64
     os: linux
   volumes:
-      name: loki-config
+      name: loki-local-config
   configMap:
       name: loki-configmap
 
