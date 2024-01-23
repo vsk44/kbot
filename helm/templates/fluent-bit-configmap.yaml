@@ -39,6 +39,12 @@ data:
         add_label            app fluent-bit
         add_label            color blue
 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.fluentBit.configMap.luaName }}
+data:
   docker-metadata.lua: |-
     DOCKER_VAR_DIR = '/var/lib/docker/containers/'
     DOCKER_CONTAINER_CONFIG_FILE = '/config.v2.json'
