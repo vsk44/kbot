@@ -16,4 +16,11 @@ spec:
       containers:
         - name: fluent-bit
           image: {{ .Values.fluentBit.image.registry }}/{{ .Values.fluentBit.image.repository }}:{{ .Values.fluentBit.image.tag }}
+          volumeMounts:
+            - name: fluent-bit-config-volume
+              mountPath: /fluent-bit/etc
+            - name: docker-metadata-lua
+              mountPath: /fluent-bit/bin/docker-metadata.lua
+          ports:
+            - "3001:3001"
 {{- end }}
