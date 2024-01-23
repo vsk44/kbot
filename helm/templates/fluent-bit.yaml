@@ -27,9 +27,7 @@ spec:
         - name: fluent-bit-config
           configMap:
             name: {{ .Values.fluentBit.configMap.name }}
-            key: {{ .Values.fluentBit.configMap.key }}
         - name: docker-metadata-lua
           configMap:
             name: {{ .Values.fluentBit.configMap.name }}
-            key: {{ .Values.fluentBit.configMap.luaKey }}
 {{- end }}
