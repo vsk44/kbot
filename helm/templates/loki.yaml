@@ -24,7 +24,6 @@ spec:
             - containerPort: 3100
           args:
             - "-config.file=/etc/loki/local-config.yaml"
-            - "-log.level=error"
       volumes:
         - name: {{ .Values.loki.volumes.name }}
           configMap:

@@ -65,10 +65,10 @@ loki:
     arch: amd64
     os: linux
   volumes:
-      name: loki-local-config
+    name: loki-local-config
   configMap:
-      name: loki-configmap
-      key: local-config.yaml
+    name: loki-configmap
+    key: local-config.yaml
 
 
 prometheus:
@@ -79,16 +79,12 @@ prometheus:
     tag: "latest"
     arch: amd64
     os: linux
-  scrapeInterval: 15s
-  evaluationInterval: 15s
-  additionalScrapeConfigs:
-    - job_name: otel_collector
-      scrape_interval: 5s
-      static_configs:
-        - targets: ['collector:8889']
-    - job_name: 'prometheus'
-      static_configs:
-        - targets: ['localhost:9090']
+  volumes:
+    name: prometheus-config  # Оновлена назва ключа volumes
+  configMap:
+    name: prometheus-configmap
+    key: prometheus.yaml
+  
         
 grafana:
   enabled: true
