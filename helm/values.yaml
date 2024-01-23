@@ -8,7 +8,7 @@ image:
   repository: "vsk4/kbot"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.6-fe24d35"
+  tag: "v1.0.6-ecfadba"
   arch: amd64
   os: linux
 secret:
@@ -19,7 +19,6 @@ securityContext:
   privileged: true
 metricsHost:
   name: "collector:4317"
-
 otelOperator:
   enabled: false
   image:
@@ -28,7 +27,6 @@ otelOperator:
     tag: "latest"
     arch: amd64
     os: linux
-
 otelCollector:
   enabled: true
   image:
@@ -38,11 +36,10 @@ otelCollector:
     arch: amd64
     os: linux
   volumes:
-      name: otel-collector-config
+    name: otel-collector-config
   configMap:
-      name: otel-collector-configmap
-      key: otel-collector-config.yaml
-
+    name: otel-collector-configmap
+    key: otel-collector-config.yaml
 fluentBit:
   enabled: true
   image:
@@ -53,10 +50,9 @@ fluentBit:
     os: linux
   configMap:
     name: fluent-bit-config
-    key: fluent-bit.conf 
+    key: fluent-bit.conf
     luaName: docker-metadata-lua
     luaKey: docker-metadata.lua
-
 loki:
   enabled: true
   image:
@@ -70,8 +66,6 @@ loki:
   configMap:
     name: loki-configmap
     key: local-config.yaml
-
-
 prometheus:
   enabled: true
   image:
@@ -81,12 +75,10 @@ prometheus:
     arch: amd64
     os: linux
   volumes:
-    name: prometheus-config  # Оновлена назва ключа volumes
+    name: prometheus-config # Оновлена назва ключа volumes
   configMap:
     name: prometheus-configmap
     key: prometheus.yaml
-  
-        
 grafana:
   enabled: true
   image:
