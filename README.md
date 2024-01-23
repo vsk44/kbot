@@ -3,7 +3,7 @@ devops application from scratch_
 example bot
 https://t.me/vsk4_bot
 
-Інструкція по використанню:
+## Інструкція по використанню:
 1. Створити змінну середовища TELE_TOKEN (згенерувати ключ з BotFather)
 2. Запустити бота. Команда: `./kbot`
 
@@ -12,7 +12,7 @@ https://t.me/vsk4_bot
 Приклад команд, які використовуються:
 -написати `/start hello`
 
-Іструкція по розгортанню на Kubernetes кластері:
+## Іструкція по розгортанню на Kubernetes кластері:
 
 1. Підняти k3d: https://k3d.io/ (також підійдуть k3s, kind та minikube). 
 2. Інсталювати ArgoCD ( в моєму випадку аплікейшн піднімаю саме на ньому ). Інструкція: https://argo-cd.readthedocs.io/en/stable/getting_started/
