@@ -27,7 +27,7 @@ data:
     [OUTPUT]
         Name                 opentelemetry
         Match                source.docker.*
-        Host                 {{ .Values.metricsHost.name }}
+        Host                 collector:4317
         Port                 4317
         metrics_uri          /v1/metrics
         logs_uri             /v1/logs
