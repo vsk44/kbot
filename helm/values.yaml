@@ -8,7 +8,7 @@ image:
   repository: "vsk4/kbot"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.6-5bc69d8"
+  tag: "v1.0.6-fe24d35"
   arch: amd64
   os: linux
 secret:
@@ -19,7 +19,6 @@ securityContext:
   privileged: true
 metricsHost:
   name: "collector:4317"
-
 otelOperator:
   enabled: true
   image:
@@ -28,7 +27,6 @@ otelOperator:
     tag: "latest"
     arch: amd64
     os: linux
-
 otelCollector:
   enabled: true
   image:
@@ -60,7 +58,6 @@ otelCollector:
       metrics:
         receivers: [otlp]
         exporters: [logging, prometheus]
-
 fluentBit:
   enabled: true
   image:
@@ -71,7 +68,7 @@ fluentBit:
     os: linux
   configMap:
     name: fluent-bit-config
-    key: fluent-bit.conf 
+    key: fluent-bit.conf
     luaKey: docker-metadata.lua
   config:
     fluent-bit.conf: |-
@@ -109,7 +106,6 @@ fluentBit:
           # add user-defined labels
           add_label            app fluent-bit
           add_label            color blue
-
     docker-metadata.lua: |-
       DOCKER_VAR_DIR = '/var/lib/docker/containers/'
       DOCKER_CONTAINER_CONFIG_FILE = '/config.v2.json'
@@ -175,7 +171,6 @@ fluentBit:
 
         return 1, timestamp, new_record
       end
-
 loki:
   enabled: true
   image:
@@ -184,7 +179,7 @@ loki:
     tag: "2.8.2"
     arch: amd64
     os: linux
-  authEnabled: false  # Додали новий параметр
+  authEnabled: false # Додали новий параметр
   server:
     httpListenPort: 3100
     grpcListenPort: 9096
@@ -218,7 +213,6 @@ loki:
     alertmanagerUrl: http://localhost:9093
   analytics:
     reportingEnabled: false
-
 prometheus:
   enabled: true
   image:
@@ -237,7 +231,6 @@ prometheus:
     - job_name: 'prometheus'
       static_configs:
         - targets: ['localhost:9090']
-        
 grafana:
   enabled: true
   image:
@@ -260,26 +253,4 @@ grafana:
   configMap:
     name: grafana-config
     data:
-      grafana.yaml: |-
-        apiVersion: 1
-        datasources:
-        - name: Prometheus
-          type: prometheus
-          uid: prometheus
-          orgId: 1
-          url: http://prometheus:9090
-          basicAuth: false
-          isDefault: false
-          version: 1
-          editable: true
-          jsonData:
-            httpMethod: GET
-        - name: Loki
-          type: loki
-          access: proxy 
-          orgId: 1
-          url: http://loki:3100
-          basicAuth: false
-          isDefault: false
-          version: 1
-          editable: true
+      grafana.yaml: "apiVersion: 1\ndatasources:\n- name: Prometheus\n  type: prometheus\n  uid: prometheus\n  orgId: 1\n  url: http://prometheus:9090\n  basicAuth: false\n  isDefault: false\n  version: 1\n  editable: true\n  jsonData:\n    httpMethod: GET\n- name: Loki\n  type: loki\n  access: proxy \n  orgId: 1\n  url: http://loki:3100\n  basicAuth: false\n  isDefault: false\n  version: 1\n  editable: true"
