@@ -1,0 +1,19 @@
+{{- if .Values.otelCollector.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-collector
+  template:
+    metadata:
+      labels:
+        app: otel-collector
+    spec:
+      containers:
+        - name: otel-collector
+          image: {{ .Values.otelCollector.image.registry }}/{{ .Values.otelCollector.image.repository }}:{{ .Values.otelCollector.image.tag }}
+{{- end }}

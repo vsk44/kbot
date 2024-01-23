@@ -1,0 +1,19 @@
+{{- if .Values.otelOperator.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-operator
+  template:
+    metadata:
+      labels:
+        app: otel-operator
+    spec:
+      containers:
+        - name: otel-operator
+          image: {{ .Values.otelOperator.image.registry }}/{{ .Values.otelOperator.image.repository }}:{{ .Values.otelOperator.image.tag }}
+{{- end }}

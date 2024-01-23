@@ -1,0 +1,19 @@
+{{- if .Values.prometheus.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+        - name: prometheus
+          image: {{ .Values.prometheus.image.registry }}/{{ .Values.prometheus.image.repository }}:{{ .Values.prometheus.image.tag }}
+{{- end }}
