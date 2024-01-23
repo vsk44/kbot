@@ -20,7 +20,7 @@ spec:
             - name: {{ .Values.otelCollector.volumes.name }}
               mountPath: /etc/otel-collector-config.yaml
           ports:
-            - containterPort: 4317
+            - containerPort: 4317
           args:
             - "--config=/etc/otel-collector-config.yaml"
       volumes:
