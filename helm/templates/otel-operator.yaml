@@ -15,5 +15,5 @@ spec:
     spec:
       containers:
         - name: otel-operator
-          image: otel/opentelemetry-operator:latest
+          image: {{ .Values.otelOperator.image.registry }}/{{ .Values.otelOperator.image.repository }}:{{ .Values.otelOperator.image.tag }}
 {{- end }}

@@ -18,11 +18,14 @@ secret:
 securityContext:
   privileged: true
 
-otelTelemetry:
-  enabled: true
-
 otelOperator:
   enabled: true
+  image:
+    registry: "otel"
+    repository: "opentelemetry-operator"
+    tag: "latest"
+    arch: amd64
+    os: linux
 
 otelCollector:
   enabled: true
