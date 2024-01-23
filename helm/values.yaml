@@ -21,7 +21,7 @@ metricsHost:
   name: "collector:4317"
 
 otelOperator:
-  enabled: true
+  enabled: false
   image:
     registry: "otel"
     repository: "opentelemetry-operator"
@@ -37,29 +37,10 @@ otelCollector:
     tag: "0.78.0"
     arch: amd64
     os: linux
-  receivers:
-    otlp:
-      protocols:
-        grpc:
-        http:
-          endpoint: "0.0.0.0:3030"
-  exporters:
-    logging: {}
-    loki:
-      endpoint: "http://loki:3100/loki/api/v1/push"
-    prometheus:
-      endpoint: "0.0.0.0:8889"
-  service:
-    pipelines:
-      logs:
-        receivers: [otlp]
-        exporters: [loki]
-      traces:
-        receivers: [otlp]
-        exporters: [logging]
-      metrics:
-        receivers: [otlp]
-        exporters: [logging, prometheus]
+  volumes:
+    - name: otel-collector-config
+      configMap:
+        name: otel-collector-configmap
 
 fluentBit:
   enabled: true
