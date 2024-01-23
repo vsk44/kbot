@@ -19,7 +19,7 @@ spec:
           volumeMounts:
             - name: docker-metadata-lua
               mountPath: /fluent-bit/bin/docker-metadata.lua
-            - name: fluent-bit-config-volume
+            - name: fluent-bit-config
               mountPath: /fluent-bit/etc/fluent-bit.conf
           ports:
             - containerPort: 3001
