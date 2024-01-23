@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.fluentBit.configMap.name }}
+data:
+  fluent-bit.conf: |-
+    [SERVICE]
+        flush 1
+        log_level error
+
+    [INPUT]
+        Name   tail
+        Path   /var/lib/docker/containers/*/*.log
+        Parser docker
+        Refresh_Interval 30
+        Ignore_Older 6h
+        Docker_Mode  On
+        Tag source.docker.<container_id>
+        Tag_Regex (.*\/(?<container_id>.*)-json\.log)
+
+    [FILTER]
+        Name   lua
+        Match  source.docker.*
+        script /fluent-bit/bin/docker-metadata.lua
+        call   encrich_with_docker_metadata
+
+    [OUTPUT]
+        Name                 opentelemetry
+        Match                source.docker.*
+        Host                 {{ .Values.metricsHost.name }}
+        Port                 4317
+        metrics_uri          /v1/metrics
+        logs_uri             /v1/logs
+        traces_uri           /v1/traces
+        Log_response_payload True
+        tls                  off
+        tls.verify           off
+        # add user-defined labels
+        add_label            app fluent-bit
+        add_label            color blue
+
+  docker-metadata.lua: |-
+    DOCKER_VAR_DIR = '/var/lib/docker/containers/'
+    DOCKER_CONTAINER_CONFIG_FILE = '/config.v2.json'
+    DOCKER_CONTAINER_METADATA = {
+      docker_container_name = '\"Name\":\"/?(.-)\"',
+      docker_container_image = '\"Image\":\"/?(.-)\"',
+      docker_container_started = '\"StartedAt\":\"/?(.-)\"'
+    }
+
+    cache = {}
+
+    -- Gets metadata from config.v2.json file for container
+    function get_container_metadata_from_disk(container_id)
+      local docker_config_file = DOCKER_VAR_DIR .. container_id .. DOCKER_CONTAINER_CONFIG_FILE
+      fl = io.open(docker_config_file, 'r')
+
+      if fl == nil then
+        return nil
+      end
+
+      -- Parse json file and create record for cache
+      local data = {}
+      for line in fl:lines() do
+        for key, regex in pairs(DOCKER_CONTAINER_METADATA) do
+          local match = line:match(regex)
+          if match then
+            data[key] = match
+          end
+        end
+      end
+      fl:close()
+
+      if next(data) == nil then
+        return nil
+      else
+        return data
+      end
+    end
+
+    function encrich_with_docker_metadata(tag, timestamp, record)
+      -- Get container id from tag
+      container_id = tag:match'.*%.(.*)'
+      if not container_id then
+        return 0, 0, 0
+      end
+
+      -- Add container_id to record
+      new_record = record
+      new_record['docker.container_id'] = container_id
+
+      -- Check if we have fresh cache record for container
+      local cached_data = cache[container_id]
+      if cached_data == nil then
+        cached_data = get_container_metadata_from_disk(container_id)
+      end
+
+      -- Metadata found in cache or got from disk, enrich record
+      if cached_data then
+        for key, regex in pairs(DOCKER_CONTAINER_METADATA) do
+          new_record[key] = cached_data[key]
+        end
+      end
+
+      return 1, timestamp, new_record
+    end
