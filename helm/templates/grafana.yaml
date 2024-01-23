@@ -18,6 +18,8 @@ spec:
           image: {{ .Values.grafana.image.registry }}/{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}
           volumeMounts:
             - name: {{ .Values.grafana.volumes.name }}
+              mountPath: /etc/grafana/provisioning/datasources/datasources.yaml
+              subPath: datasources.yaml
           ports:
             - containerPort: 3002
           env:

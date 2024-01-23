@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.grafana.configMap.name }}
 data:
-  grafana-datasources.yaml: |-
+  datasources.yaml: |-
     
     apiVersion: 1
 

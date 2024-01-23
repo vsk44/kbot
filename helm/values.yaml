@@ -96,4 +96,4 @@ grafana:
     name: grafana-config
   configMap:
     name: grafana-configmap
-    key: grafana-datasources.yaml
+    key: datasources.yaml
