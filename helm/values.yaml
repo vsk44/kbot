@@ -34,7 +34,7 @@ otelCollector:
   image:
     registry: "otel"
     repository: "opentelemetry-collector-contrib"
-    tag: "0.78.0"
+    tag: "0.92.0"
     arch: amd64
     os: linux
   volumes:
@@ -77,7 +77,7 @@ prometheus:
   image:
     registry: "prom"
     repository: "prometheus"
-    tag: "latest"
+    tag: "v2.49.0"
     arch: amd64
     os: linux
   volumes:
