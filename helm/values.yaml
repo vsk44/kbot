@@ -53,6 +53,7 @@ fluentBit:
   configMap:
     name: fluent-bit-config
     key: fluent-bit.conf 
+    luaName: docker-metadata-lua
     luaKey: docker-metadata.lua
 
 loki:
