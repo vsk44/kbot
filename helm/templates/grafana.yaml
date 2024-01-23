@@ -23,11 +23,16 @@ spec:
           ports:
             - containerPort: 3002
           env:
-            - GF_AUTH_ANONYMOUS_ENABLED=true
-            - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-            - GF_AUTH_DISABLE_LOGIN_FORM=true
-            - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
-            - GF_SERVER_HTTP_PORT=3002
+            - name: GF_AUTH_ANONYMOUS_ENABLED
+              value: "true"
+            - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+              value: "Admin"
+            - name: GF_AUTH_DISABLE_LOGIN_FORM
+              value: "true"
+            - name: GF_FEATURE_TOGGLES_ENABLE
+              value: "traceqlEditor"
+            - name: GF_SERVER_HTTP_PORT
+              value: "3002"
       volumes:
         - name: {{ .Values.grafana.volumes.name }}
           configMap:
