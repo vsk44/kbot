@@ -7,7 +7,7 @@ image:
   registry: "docker.io"
   repository: "vsk4/kbot"
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+
   tag: "v1.0.6-ecfadba"
   arch: amd64
   os: linux
@@ -75,7 +75,7 @@ prometheus:
     arch: amd64
     os: linux
   volumes:
-    name: prometheus-config # Оновлена назва ключа volumes
+    name: prometheus-config
   configMap:
     name: prometheus-configmap
     key: prometheus.yaml
