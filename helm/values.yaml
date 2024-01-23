@@ -41,6 +41,7 @@ otelCollector:
       name: otel-collector-config
   configMap:
       name: otel-collector-configmap
+      key: otel-collector-config.yaml
 
 fluentBit:
   enabled: true

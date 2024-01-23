@@ -19,6 +19,7 @@ spec:
           volumeMounts:
             - name: {{ .Values.otelCollector.volumes.name }}
               mountPath: /etc/otel-collector-config.yaml
+              subPath: otel-collector-config.yaml
           ports:
             - containerPort: 4317
           args:
@@ -27,4 +28,5 @@ spec:
         - name: {{ .Values.otelCollector.volumes.name }}
           configMap:
             name: {{ .Values.otelCollector.configMap.name }}
+            key: {{ .Values.otelCollector.configMap.key }}
 {{- end }}
