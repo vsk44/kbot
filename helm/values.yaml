@@ -17,6 +17,8 @@ secret:
   key: "token"
 securityContext:
   privileged: true
+metricsHost:
+  name: "collector:4317"
 
 otelOperator:
   enabled: true
