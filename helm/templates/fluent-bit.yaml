@@ -23,4 +23,8 @@ spec:
               mountPath: /fluent-bit/etc/fluent-bit.conf
           ports:
             - containerPort: 3001
+      volumes:
+        - name: fluent-bit-config
+          configMap:
+            name: {{ .Values.fluentBit.configMap.name }}
 {{- end }}
