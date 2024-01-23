@@ -7,8 +7,7 @@ image:
   registry: "docker.io"
   repository: "vsk4/kbot"
   pullPolicy: IfNotPresent
-
-  tag: "v1.0.6-ecfadba"
+  tag: "v1.0.6-3fcfda2"
   arch: amd64
   os: linux
 secret:
