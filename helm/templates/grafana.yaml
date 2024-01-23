@@ -16,6 +16,19 @@ spec:
       containers:
         - name: grafana
           image: {{ .Values.grafana.image.registry }}/{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}
+          volumeMounts:
+            - name: {{ .Values.grafana.volumes.name }}
+          ports:
+            - containerPort: 3002
           env:
-            {{- toYaml .Values.grafana.env | nindent 12 }}
+            - GF_AUTH_ANONYMOUS_ENABLED=true
+            - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+            - GF_AUTH_DISABLE_LOGIN_FORM=true
+            - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
+            - GF_SERVER_HTTP_PORT=3002
+      volumes:
+        - name: {{ .Values.grafana.volumes.name }}
+          configMap:
+            name: {{ .Values.grafana.configMap.name }}
+            key: {{ .Values.grafana.configMap.key }}
 {{- end }}

@@ -92,42 +92,8 @@ grafana:
     registry: "grafana"
     repository: "grafana"
     tag: "9.4.3"
-  provisioning:
-    datasources: true
-  env:
-    - name: GF_AUTH_ANONYMOUS_ENABLED
-      value: "true"
-    - name: GF_AUTH_ANONYMOUS_ORG_ROLE
-      value: "Admin"
-    - name: GF_AUTH_DISABLE_LOGIN_FORM
-      value: "true"
-    - name: GF_FEATURE_TOGGLES_ENABLE
-      value: "traceqlEditor"
-    - name: GF_SERVER_HTTP_PORT
-      value: "3002"
-  configMap:
+  volumes:
     name: grafana-config
-    data:
-      grafana.yaml: |-
-        apiVersion: 1
-        datasources:
-        - name: Prometheus
-          type: prometheus
-          uid: prometheus
-          orgId: 1
-          url: http://prometheus:9090
-          basicAuth: false
-          isDefault: false
-          version: 1
-          editable: true
-          jsonData:
-            httpMethod: GET
-        - name: Loki
-          type: loki
-          access: proxy 
-          orgId: 1
-          url: http://loki:3100
-          basicAuth: false
-          isDefault: false
-          version: 1
-          editable: true
+  configMap:
+    name: grafana-configmap
+    key: grafana-datasources.yaml
