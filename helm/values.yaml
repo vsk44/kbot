@@ -39,8 +39,8 @@ otelCollector:
     os: linux
   volumes:
     - name: otel-collector-config
-      configMap:
-        name: otel-collector-configmap
+  configMap:
+      name: otel-collector-configmap
 
 fluentBit:
   enabled: true
