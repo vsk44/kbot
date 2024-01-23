@@ -52,7 +52,7 @@ spec:
               secretKeyRef:
                 name: {{ .Values.secret.name }}
                 key: {{ .Values.secret.key }}
-          - name: METRICS_HOST
+          - name: metricsHost
             value: {{ .Values.metricsHost.name }}
           # readinessProbe:
           #   httpGet:

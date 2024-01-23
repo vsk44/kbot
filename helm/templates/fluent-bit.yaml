@@ -16,4 +16,27 @@ spec:
       containers:
         - name: fluent-bit
           image: {{ .Values.fluentBit.image.registry }}/{{ .Values.fluentBit.image.repository }}:{{ .Values.fluentBit.image.tag }}
+          volumeMounts:
+            - name: fluent-bit-config
+              mountPath: /fluent-bit/etc/fluent-bit.conf
+              subPath: fluent-bit.conf
+            - name: docker-metadata-lua
+              mountPath: /fluent-bit/bin/docker-metadata.lua
+              subPath: docker-metadata.lua
+            - name: docker-logs
+              mountPath: /var/lib/docker/containers
+          ports:
+            - containerPort: 3001
+      volumes:
+        - name: fluent-bit-config
+          configMap:
+            name: {{ .Values.fluentBit.configMap.name }}
+            key: {{ .Values.fluentBit.configMap.key }}
+        - name: docker-metadata-lua
+          configMap:
+            name: {{ .Values.fluentBit.configMap.luaName }}
+            key: {{ .Values.fluentBit.configMap.luaKey }}
+        - name: docker-logs
+          hostPath:
+            path: /var/lib/docker/containers
 {{- end }}

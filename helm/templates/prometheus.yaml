@@ -16,4 +16,19 @@ spec:
       containers:
         - name: prometheus
           image: {{ .Values.prometheus.image.registry }}/{{ .Values.prometheus.image.repository }}:{{ .Values.prometheus.image.tag }}
+          volumeMounts:
+            - name: {{ .Values.prometheus.volumes.name }}
+              mountPath: /etc/prometheus.yaml
+              subPath: prometheus.yaml
+          ports:
+            - containerPort: 9090
+          args:
+            - "--config.file=/etc/prometheus.yaml"
+            - "--web.enable-remote-write-receiver"
+            - "--enable-feature=exemplar-storage"
+      volumes:
+        - name: {{ .Values.prometheus.volumes.name }}
+          configMap:
+            name: {{ .Values.prometheus.configMap.name }}
+            key: {{ .Values.prometheus.configMap.key }}
 {{- end }}
