@@ -27,7 +27,7 @@ data:
     [OUTPUT]
         Name                 opentelemetry
         Match                source.docker.*
-        Host                 collector:4317
+        Host                 collector
         Port                 4317
         metrics_uri          /v1/metrics
         logs_uri             /v1/logs
