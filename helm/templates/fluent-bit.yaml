@@ -45,4 +45,13 @@ spec:
         - name: docker-logs
           hostPath:
             path: /var/lib/docker/containers
+        - name: var-dir
+          hostPath:
+            path: /var
+        - name: host-proc-dir
+          hostPath:
+            path: host/proc
+        - name: host-sys-dir
+          hostPath:
+            path: /host/sys
 {{- end }}
