@@ -5,8 +5,8 @@ metadata:
 data:
   fluent-bit.conf: |-
     [SERVICE]
-    flush 1
-    log_level error
+        flush 1
+        log_level error
 
     [INPUT]
         Name   tail
