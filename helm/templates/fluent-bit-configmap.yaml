@@ -5,8 +5,8 @@ metadata:
 data:
   fluent-bit.conf: |-
     [SERVICE]
-        flush 1
-        log_level error
+    flush 1
+    log_level error
 
     [INPUT]
         Name   tail
@@ -28,7 +28,7 @@ data:
         Name                 opentelemetry
         Match                source.docker.*
         Host                 collector
-        Port                 4317
+        Port                 3030
         metrics_uri          /v1/metrics
         logs_uri             /v1/logs
         traces_uri           /v1/traces
@@ -49,9 +49,9 @@ data:
     DOCKER_VAR_DIR = '/var/lib/docker/containers/'
     DOCKER_CONTAINER_CONFIG_FILE = '/config.v2.json'
     DOCKER_CONTAINER_METADATA = {
-      docker_container_name = '\"Name\":\"/?(.-)\"',
-      docker_container_image = '\"Image\":\"/?(.-)\"',
-      docker_container_started = '\"StartedAt\":\"/?(.-)\"'
+      ['docker.container_name'] = '\"Name\":\"/?(.-)\"',
+      ['docker.container_image'] = '\"Image\":\"/?(.-)\"',
+      ['docker.container_started'] = '\"StartedAt\":\"/?(.-)\"'
     }
 
     cache = {}
