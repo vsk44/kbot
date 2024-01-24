@@ -25,6 +25,12 @@ spec:
               subPath: docker-metadata.lua
             - name: docker-logs
               mountPath: /var/lib/docker/containers
+            - name: var-dir
+              mountPath: /var
+            - name: host-proc-dir
+              mountPath: /host/proc
+            - name: host-sys-dir
+              mountPath: /host/sys
           ports:
             - containerPort: 3001
       volumes:
