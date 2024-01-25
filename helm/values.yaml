@@ -81,7 +81,7 @@ prometheus:
     arch: amd64
     os: linux
   volumes:
-    name: prometheus-config  # Оновлена назва ключа volumes
+    name: prometheus-config
   configMap:
     name: prometheus-configmap
     key: prometheus.yaml
