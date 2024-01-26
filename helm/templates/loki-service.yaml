@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: loki
-  namespace: kbot  # Replace with your actual namespace
+  namespace: kbot
 spec:
   selector:
     app: loki
