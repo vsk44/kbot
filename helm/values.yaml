@@ -7,7 +7,7 @@ image:
   registry: "docker.io"
   repository: "vsk4/kbot"
   pullPolicy: IfNotPresent
-  tag: "v1.0.6-10bfa13"
+  tag: "v1.0.6-61ae344"
   arch: amd64
   os: linux
 secret:
@@ -18,7 +18,6 @@ securityContext:
   privileged: true
 metricsHost:
   name: collector:4317
-
 otelOperator:
   enabled: false
   image:
