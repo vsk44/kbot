@@ -29,6 +29,3 @@ data:
         metrics:
           receivers: [otlp]
           exporters: [logging,prometheus]
-spec:
-  mode: daemonset
-  hostNetwork: true
